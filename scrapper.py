@@ -7,7 +7,7 @@ from urllib.parse import urlparse
 def coletar_links():
     """Coleta até 4 links de pesquisa fornecidos pelo usuário"""
     links = []
-    print("Digite até 4 links de pesquisa (Google, Bing ou DuckDuckGo). Deixe em branco para encerrar.")
+    print("Digite até 4 links de pesquisa (Google ou Bing). Deixe em branco para encerrar.")
     for i in range(4):
         link = input(f"Link {i + 1}: ").strip()
         if not link:
@@ -33,28 +33,15 @@ def extrair_links_google(soup, limite=50):
     return resultados
 
 def extrair_links_bing(soup, limite=50):
-    """Extrai links da página de pesquisa do Bing, ignorando domínios bing.com"""
+    """Extrai links da página de pesquisa do Bing, ignorando domínios bing.com e go.microsoft.com"""
     print("Extraindo links do Bing...")
     resultados = []
     for a in soup.find_all('a', href=True):
         href = a['href']
         if href.startswith("http"):
             domain = urlparse(href).netloc
-            if "bing.com" not in domain and "bing." not in domain:
-                resultados.append(href)
-        if len(resultados) >= limite:
-            break
-    return resultados
-
-def extrair_links_duckduckgo(soup, limite=50):
-    """Extrai links da página de pesquisa do DuckDuckGo, ignorando domínios duckduckgo.com"""
-    print("Extraindo links do DuckDuckGo...")
-    resultados = []
-    for a in soup.find_all('a', {'class': 'result__a'}, href=True):
-        href = a['href']
-        if href.startswith("http"):
-            domain = urlparse(href).netloc
-            if "duckduckgo.com" not in domain and "duckduckgo." not in domain:
+            # Ignora links do próprio Bing e do domínio go.microsoft.com
+            if "bing.com" not in domain and "go.microsoft.com" not in domain and "support.microsoft.com" not in domain:
                 resultados.append(href)
         if len(resultados) >= limite:
             break
@@ -140,8 +127,6 @@ def processar_raspagem():
                 urls = extrair_links_google(soup)
             elif "bing.com" in link:
                 urls = extrair_links_bing(soup)
-            elif "duckduckgo.com" in link:
-                urls = extrair_links_duckduckgo(soup)
             else:
                 print(f"Link não reconhecido: {link}. Pulando para o próximo.")
                 continue
