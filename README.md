@@ -1,17 +1,17 @@
 # Raspagem de Resultados de Pesquisa
 
-Este repositório contém um script em Python que realiza raspagem de páginas da web a partir de resultados de pesquisa fornecidos pelos motores de busca **Google**, **Bing** e **DuckDuckGo**. O script processa links de pesquisa fornecidos pelo usuário, acessa os resultados mais relevantes e coleta informações como título, link, data de publicação e conteúdo principal das páginas. Apenas páginas válidas (sem erros de acesso) são registradas no arquivo Excel gerado.
+Este repositório contém um script em Python que realiza raspagem de páginas da web a partir de resultados de pesquisa fornecidos pelos motores de busca **Google** e **Bing**. O script processa links de pesquisa fornecidos pelo usuário, acessa os resultados mais relevantes e coleta informações como título, link, data de publicação e conteúdo principal das páginas. Apenas páginas válidas (sem erros de acesso) são registradas no arquivo Excel gerado.
 
 ---
 
 ## **Funcionalidades**
 
 1. **Coleta de Links de Pesquisa**:
-   - O usuário pode fornecer até 4 links de pesquisa de **Google**, **Bing** ou **DuckDuckGo**.
+   - O usuário pode fornecer até 4 links de pesquisa de **Google** ou **Bing**.
 
 2. **Extração de Links dos Resultados**:
    - O script identifica automaticamente o motor de busca e extrai os links relevantes, ignorando:
-     - Links do próprio motor de busca (como `google.com`, `bing.com` e `duckduckgo.com`).
+     - Links do próprio motor de busca (como `google.com`, `bing.com` e `microsoft.com`).
      - Subdomínios dos motores de busca (como `news.google.com`).
 
 3. **Raspagem de Páginas**:
